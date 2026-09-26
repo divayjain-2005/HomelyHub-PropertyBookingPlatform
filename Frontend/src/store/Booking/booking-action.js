@@ -1,0 +1,23 @@
+import { axiosInstance } from "../../utils/axios"
+import { setBookingDetails, setBookings } from "./booking-slice"
+
+// Fetch booking details
+export const fetchBookingDetails = (bookingId) => async(dispatch) => {
+    try {
+        const response = await axiosInstance.get(`/v1/rent/user/booking/${bookingId}`)
+        dispatch(setBookingDetails(response.data.data))
+    } catch (error) {
+        console.error("Errors fetching booking details", error)
+    }
+}
+
+// fetch user booking 
+export const fetchUserBookings =()=>async(dispatch)=>{
+    try{
+        const response = await axiosInstance.get("/v1/rent/user/booking")
+        dispatch(setBookingDetails(response.data.data.bookings))
+
+    }catch(error){
+        console.error("Error fetching bookings",error)
+    }
+}
